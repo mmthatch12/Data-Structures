@@ -19,7 +19,7 @@ class ListNode:
 
     """Wrap the given value in a ListNode and insert it
     before this node. Note that this node could already
-    have a previous node it is pointing to."""
+    have a previous node it is point to."""
     def insert_before(self, value):
         current_prev = self.prev
         self.prev = ListNode(value, current_prev, self)
@@ -52,7 +52,6 @@ class DoublyLinkedList:
     as the new head of the list. Don't forget to handle 
     the old head node's previous pointer accordingly."""
     def add_to_head(self, value):
-        print("fired add to head")
         new_node = ListNode(value, None, None)
         self.length += 1
         #  If the list is empty
@@ -146,60 +145,23 @@ class DoublyLinkedList:
 
         return max_value
 
-class LRUCache:
-    """
-    Our LRUCache class keeps track of the max number of nodes it
-    can hold, the current number of nodes it is holding, a doubly-
-    linked list that holds the key-value entries in the correct
-    order, as well as a storage dict that provides fast access
-    to every node stored in the cache.
-    """
-    def __init__(self, limit=10):
-        self.limit = limit
+class Stack:
+    def __init__(self):
         self.size = 0
-        self.cache = {}
+        # Why is our DLL a good choice to store our elements?
         self.storage = DoublyLinkedList()
 
-    """
-    Retrieves the value associated with the given key. Also
-    needs to move the key-value pair to the end of the order
-    such that the pair is considered most-recently used.
-    Returns the value associated with the key or None if the
-    key-value pair doesn't exist in the cache.
-    """
-    def get(self, key):
-        if key in self.cache:
-            self.storage.move_to_end(self.cache[key])
-            return self.cache[key].value[key]
-        else:       
-            return None
-            
-    """
-    Adds the given key-value pair to the cache. The newly-
-    added pair should be considered the most-recently used
-    entry in the cache. If the cache is already at max capacity
-    before this entry is added, then the oldest entry in the
-    cache needs to be removed to make room. Additionally, in the
-    case that the key already exists in the cache, we simply
-    want to overwrite the old value associated with the key with
-    the newly-specified value.
-    """
-    def set(self, key, value):
-        keyval = {key: value}
-        if key not in self.cache:
-            if self.size < self.limit:
-                self.size+=1
-                self.storage.add_to_tail(keyval)
-                self.cache.update({key: self.storage.tail})
+    def push(self, value):
+        self.storage.add_to_tail(value)
+        self.size += 1
 
-            
-            else:
-                takeout = list(self.storage.remove_from_head().keys())[0]
-                self.cache.pop(takeout, None)
-                self.storage.add_to_tail(keyval)
-                self.cache.update({key: self.storage.tail})
-        
-
+    def pop(self):
+        if self.size == 0:
+            return
         else:
-            self.storage.add_to_tail(keyval)
-            self.cache[key].value[key] = value
+            self.size -= 1
+            return self.storage.remove_from_tail()
+
+    def len(self):
+        return self.size
+        
