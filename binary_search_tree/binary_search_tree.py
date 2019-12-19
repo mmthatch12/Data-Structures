@@ -84,35 +84,61 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        # make a stack
+        if self is None:
+            return
+        if self is not None:
+            if self.left:
+                self.left.in_order_print(self)
+            print(self.value)
+            if self.right:
+                self.right.in_order_print(self)
+
+            
         
-        # add root to stack
-        # while stack not empty then:
-        # pop it out (DO THE THING!!! IE PRINT)
-        # check left if exists add to stack, 
-        # check right if exists add to stack
-        pass
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        # Make a queue
+        new_queue = Queue()
         # put root in the queue
+        new_queue.enqueue(node)
         # while queue is not empty
+        while new_queue.size != 0:
             # always pop out the thing at the top of the while loop
             # pop out front of que
+            curr_node = new_queue.dequeue()
             # (DO THE THING!!)
+            print(curr_node.value)
             # If left:
+            if curr_node.left:
                 # add left to back of queue
+                new_queue.enqueue(curr_node.left)  
             # if right:
+            if curr_node.right:
                 # add right to back of queue
-        pass
+                new_queue.enqueue(curr_node.right)
+
 
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        # make a stack
+        new_stack = Stack()
+        # add root to stack
+        new_stack.push(node)
+        # while stack not empty then:
+        while new_stack.size != 0:
+            curr_node = new_stack.pop()
+        # pop it out (DO THE THING!!! IE PRINT)
+            print(curr_node.value)
+        # check left if exists add to stack, 
+            if curr_node.left is not None:
+                new_stack.push(curr_node.left)
+        # check right if exists add to stack
+            if curr_node.right is not None:
+                new_stack.push(curr_node.right)
+                # Make a queue
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
