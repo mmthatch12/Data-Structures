@@ -35,11 +35,16 @@ class BinarySearchTree:
         if target is self.value:
             return True
         elif target < self.value:
-            self.left.contains(target)
+            if self.left is None:
+                return False
+            else:
+                return self.left.contains(target)
         elif target >= self.value:
-            self.right.contains(target)
-        else:
-            return False
+            if self.right is None:
+                return False
+            else:
+                return self.right.contains(target)
+
         
 
     # Return the maximum value found in the tree
